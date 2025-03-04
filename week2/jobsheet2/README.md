@@ -324,6 +324,3 @@ Php merender file blade yg ada di /resources/views/blog/ dan menampilkan array a
 Result
 
 ![alt text](./public/img/greeing-res-2.png)
-
-----
-## Tugas praktikum
