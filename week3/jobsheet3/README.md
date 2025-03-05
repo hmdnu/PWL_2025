@@ -303,3 +303,128 @@ result
 ![kategori-view](./public/img/kategori-barang-view.png)
 
 ----
+## Praktikum 6 Eloquent ORM
+
+
+Class UserModel
+```php
+class UserModel extends Model
+{
+    //
+    use HasFactory;
+
+    protected $table = 'm_user';
+    protected $primaryKey = 'user_id';
+}
+```
+Controller
+```php
+class UserController extends Controller
+{
+    //
+    public function index()
+    {
+        $user = UserModel::all();
+        return view("user", ["data" => $user]);
+    }
+}
+```
+View
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Data user</title>
+</head>
+<body>
+    <h1>Data user</h1>
+
+    <table border="1" cellpadding="2" cellspacing="0">
+        <tr>
+            <th>ID</th>
+            <th>username</th>
+            <th>nama</th>
+            <th>id level pengguna</th>
+        </tr>
+        @foreach ($data as $d)
+        <tr>
+            <td>{{$d->user_id}}</td>
+            <td>{{$d->username}}</td>
+            <td>{{$d->nama}}</td>
+            <td>{{$d->level_id}}</td>
+        </tr>
+        @endforeach
+    </table>
+
+</body>
+</html>
+```
+
+Result
+Mengambil & menampikan data m_user ke client
+![data-user](./public/img/data-user.png)
+
+
+Modifikasi insert data
+
+```php
+
+class UserController extends Controller
+{
+    //
+    public function index()
+    {
+        // $user = UserModel::all();
+        // return view("user", ["data" => $user]);
+
+        $data = [
+            'username' => 'customer-1',
+            'nama' => 'pelanggan',
+            'password' => Hash::make('1234'),
+            'level_id' => 3
+        ];
+
+        UserModel::insert($data);
+
+        $user = UserModel::all();
+        return view('user', ['data' => $user]);
+    }
+}
+```
+Result
+![user-data](./public/img/modified-data-user.png)
+
+Modifikasi update data
+
+```php
+class UserController extends Controller
+{
+    //
+    public function index()
+    {
+
+        // $data = [
+        //     'username' => 'customer-1',
+        //     'nama' => 'pelanggan',
+        //     'password' => Hash::make('1234'),
+        //     'level_id' => 3
+        // ];
+
+        // UserModel::insert($data);
+
+
+        $data = [
+            'nama' => 'pelanggan pertama'
+        ];
+        UserModel::where('username', 'customer-1')->update($data);
+
+        $user = UserModel::all();
+        return view('user', ['data' => $user]);
+    }
+}
+```
+result
+![update-data-user](./public/img/update-data-user.png)
