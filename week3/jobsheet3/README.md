@@ -183,3 +183,123 @@ view
 
 result 
 ![res-level](./public/img/view-level.png)
+
+----
+## Praktikum 5
+1. insert
+
+```php
+class KategoriController extends Controller
+{
+    //
+    public function index()
+    {
+        $data = [
+            'kategori_kode' => 'SNK',
+            'kategori_nama' => 'snack/makanan ringan',
+            'created_at' => now(),
+            'updated_at' => now()
+        ];
+
+        DB::table('m_kategori')->insert($data);
+        return 'insert data baru berhasil';
+    }
+}
+```
+result
+```
++-------------+---------------+----------------------+---------------------+---------------------+
+| kategori_id | kategori_kode | kategori_nama        | created_at          | updated_at          |
++-------------+---------------+----------------------+---------------------+---------------------+
+|           1 | ELEC          | Elektronik           | 2025-03-05 14:09:48 | 2025-03-05 14:09:48 |
+|           2 | FASH          | Fashion              | 2025-03-05 14:09:48 | 2025-03-05 14:09:48 |
+|           3 | FOOD          | Makanan              | 2025-03-05 14:09:48 | 2025-03-05 14:09:48 |
+|           4 | BOOK          | Buku                 | 2025-03-05 14:09:48 | 2025-03-05 14:09:48 |
+|           5 | TOY           | Mainan               | 2025-03-05 14:09:48 | 2025-03-05 14:09:48 |
+|           6 | SNK           | snack/makanan ringan | 2025-03-05 14:49:57 | 2025-03-05 14:49:57 |
++-------------+---------------+----------------------+---------------------+---------------------+
+```
+2. update
+```php
+$row = DB::table('m_kategori')->where('kategori_kode', 'SNK')->update(['kategori_nama' => 'camilan']);
+return 'update data berhasil ' . $row;
+```
+
+result
+```
++-------------+---------------+---------------+---------------------+---------------------+
+| kategori_id | kategori_kode | kategori_nama | created_at          | updated_at          |
++-------------+---------------+---------------+---------------------+---------------------+
+|           1 | ELEC          | Elektronik    | 2025-03-05 14:09:48 | 2025-03-05 14:09:48 |
+|           2 | FASH          | Fashion       | 2025-03-05 14:09:48 | 2025-03-05 14:09:48 |
+|           3 | FOOD          | Makanan       | 2025-03-05 14:09:48 | 2025-03-05 14:09:48 |
+|           4 | BOOK          | Buku          | 2025-03-05 14:09:48 | 2025-03-05 14:09:48 |
+|           5 | TOY           | Mainan        | 2025-03-05 14:09:48 | 2025-03-05 14:09:48 |
+|           6 | SNK           | camilan       | 2025-03-05 14:49:57 | 2025-03-05 14:49:57 |
++-------------+---------------+---------------+---------------------+---------------------+
+```
+
+3. delete
+```php
+$row = DB::table('m_kategori')->where('kategori_kode', 'SNK')->delete();
+return 'delete data berhasil ' . $row;
+```
+result
+```
++-------------+---------------+---------------+---------------------+---------------------+
+| kategori_id | kategori_kode | kategori_nama | created_at          | updated_at          |
++-------------+---------------+---------------+---------------------+---------------------+
+|           1 | ELEC          | Elektronik    | 2025-03-05 14:09:48 | 2025-03-05 14:09:48 |
+|           2 | FASH          | Fashion       | 2025-03-05 14:09:48 | 2025-03-05 14:09:48 |
+|           3 | FOOD          | Makanan       | 2025-03-05 14:09:48 | 2025-03-05 14:09:48 |
+|           4 | BOOK          | Buku          | 2025-03-05 14:09:48 | 2025-03-05 14:09:48 |
+|           5 | TOY           | Mainan        | 2025-03-05 14:09:48 | 2025-03-05 14:09:48 |
++-------------+---------------+---------------+---------------------+---------------------+
+```
+4. select
+```php
+$data = DB::table('m_kategori')->get();
+return view('kategori', ['data' => $data]);
+```
+result
+```
+
+```
+
+
+view
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Data kategori barang</title>
+</head>
+<body>
+    <h1>Data kategori barang</h1>
+
+    <table border="1" cellpadding="2" cellspacing="0">
+        <tr>
+            <th>ID</th>
+            <th>kode kategori</th>
+            <th>nama kategori</th>
+        </tr>
+        @foreach ($data as $d)
+        <tr>
+            <td>{{$d->kategori_id}}</td>
+            <td>{{$d->kategori_kode}}</td>
+            <td>{{$d->kategori_nama}}</td>
+        </tr>
+        @endforeach
+    </table>
+
+</body>
+</html>
+```
+
+result
+![kategori-view](./public/img/kategori-barang-view.png)
+
+----
