@@ -75,3 +75,111 @@
 ![t-penjualan-detail](./public/img/t-penjualan-detail.png)
 
 
+----
+
+## Praktikum 4
+1. insert m_level
+```php
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
+class LevelController extends Controller
+{
+    //
+    public function index()
+    {
+        DB::insert('insert into m_level (level_kode, level_nama, created_at) values(?,?,?)', ['CUS', 'pelanggan', now()]);
+
+        return 'insert data baru berhasil';
+    }
+}
+
+```
+Data inserted
+
+![insert-m-level](./public/img/insert-m-level.png)
+
+
+2. update m_level
+
+```php
+$row = DB::update('update m_level set level_nama = ? where level_kode = ?', ['Customer', 'CUS']);
+
+return 'update data berhasil, ' . $row;
+```
+result
+
+```
+mysql> select * from m_level;
++----------+------------+---------------+---------------------+------------+
+| level_id | level_kode | level_nama    | created_at          | updated_at |
++----------+------------+---------------+---------------------+------------+
+|        1 | ADM        | Administrator | NULL                | NULL       |
+|        2 | MNG        | Manager       | NULL                | NULL       |
+|        3 | STF        | Staff/Kasir   | NULL                | NULL       |
+|        4 | CUS        | Customer      | 2025-03-05 14:24:01 | NULL       |
++----------+------------+---------------+---------------------+------------+
+4 rows in set (0.00 sec)
+```
+
+3. delete m_level
+```php
+$row = DB::delete('delete from m_level where level_kode = ?', ['CUS']);
+return 'data berhasil di hapus ' . $row;
+```
+
+result
+```
+mysql> select * from m_level;
++----------+------------+---------------+------------+------------+
+| level_id | level_kode | level_nama    | created_at | updated_at |
++----------+------------+---------------+------------+------------+
+|        1 | ADM        | Administrator | NULL       | NULL       |
+|        2 | MNG        | Manager       | NULL       | NULL       |
+|        3 | STF        | Staff/Kasir   | NULL       | NULL       |
++----------+------------+---------------+------------+------------+
+3 rows in set (0.00 sec)
+```
+4. select m_level
+```php
+$data = DB::select("select * from m_level");
+return view('level', ['data' => $data]);
+```
+
+view
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Data Level Pengguna</title>
+</head>
+<body>
+    <h1>Data level pengguna</h1>
+
+    <table border="1" cellpadding="2" cellspacing="0">
+        <tr>
+            <th>ID</th>
+            <th>kode level</th>
+            <th>nama level</th>
+        </tr>
+        @foreach ($data as $d)
+        <tr>
+            <td>{{$d->level_id}}</td>
+            <td>{{$d->level_kode}}</td>
+            <td>{{$d->level_nama}}</td>
+        </tr>
+        @endforeach
+    </table>
+</body>
+</html>
+```
+
+result 
+![res-level](./public/img/view-level.png)
