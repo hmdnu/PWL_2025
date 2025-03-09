@@ -202,3 +202,63 @@ kode diatas digunakan untuk menyimpan data di database
 |       6 |        2 | manager33 | Manager 33    | $2y$12$Yqw5kmTJTAxs9J7yDyu.jePRPk9S0vU.lxIdpmSduFczYITqyUruC | 2025-03-09 12:14:24 | 2025-03-09 12:14:24 |
 +---------+----------+-----------+---------------+--------------------------------------------------------------+---------------------+---------------------+
 ```
+
+## Praktikum 2.5
+
+method ``isDirty()`` digunakan untuk mengecek jika attribute berubah sejak terakhir disimpan 
+method ``isclean()`` digunakan untuk mengecek jika attribute tidak berubah sejak terakhir disimpan
+
+```php
+$user = UserModel::create([
+    'username' => 'manager55',
+    'nama' => 'Manager55',
+    'password' => Hash::make('12345'),
+    'level_id' => 2,
+]);
+
+$user->username = 'manager56';
+
+$user->isDirty(); // true
+$user->isDirty('username'); // true
+$user->isDirty('nama'); // false
+$user->isDirty(['nama', 'username']); // true
+
+$user->save();
+
+$user->isDirty(); // false
+$user->isClean('username'); // false
+$user->isClean('nama'); // true
+$user->isClean(['nama', 'username']); // false
+
+$user->save();
+
+$user->isDirty(); // false
+$user->isClean(); // true
+
+dd($user->isDirty()); 
+```
+pada kode tersebut di line terakhir outputnya adalah false karena data tidak berubah ketika terakhir disimpan
+
+
+```php
+$user = UserModel::create([
+    'username' => 'manager11',
+    'nama' => 'Manager11',
+    'password' => Hash::make('12345'),
+    'level_id' => 2,
+]);
+
+$user->username = 'manager12';
+
+$user->save();
+
+$user->wasChanged(); // true
+$user->wasChanged('username'); // true
+$user->wasChanged(['username', 'level_id']); // true
+$user->wasChanged('nama'); // false
+
+dd($user->wasChanged(['nama', 'username'])); // true
+
+```
+
+**`wasChanged()`** digunakan untuk memeriksa apakah data telah berubah **setelah disimpan** ke database. 
