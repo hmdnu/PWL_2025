@@ -262,3 +262,88 @@ dd($user->wasChanged(['nama', 'username'])); // true
 ```
 
 **`wasChanged()`** digunakan untuk memeriksa apakah data telah berubah **setelah disimpan** ke database. 
+
+## Praktikum 2.6
+
+### read
+
+```php
+$user = UserModel::all();
+return view("user", ["data" => $user]);
+```
+kode diatas mengambil semua data di tabel m_user dan mengembalikannya ke client
+
+![user-data](./public/img/user-data-p2.6.png)
+
+### create
+
+route untuk menampilkan html tambah user
+
+```php
+Route::get('/user/tambah', [UserController::class, 'tambah']);
+```
+
+method tambah() untuk merender file html userTambah
+```php
+public function tambah()
+{
+    return view('userTambah');
+}
+```
+
+![tambah-user](./public/img/tambah-user.png)
+
+
+```php
+public function tambah_simpan(Request $request)
+{
+    UserModel::create([
+        'username' => $request->username,
+        'nama' => $request->nama,
+        'password' => Hash::make('$request->password'),
+        'level_id' => $request->level_id
+    ]);
+
+    return redirect('/user');
+}
+```
+
+kode diatas digunakan untuk membuat data, ``$request`` adalah parameter untuk mengambil data dari form input di client
+
+### update
+
+link ubah redirect page ke /user/ubah/{id-user} dan merender informasi dari table ke client
+
+![ubah](./public/img/ubah-page.png)
+
+
+kode dibawah digunakan untuk mengupdate data ketika form di isi
+
+```php
+public function ubah_simpan($id, Request $request)
+{
+    $user = UserModel::find($id);
+    $user->username = $request->username;
+    $user->nama = $request->nama;
+    $user->password = Hash::make('$request->password');
+    $user->level_id = $request->level_id;
+    $user->save();
+
+    return redirect('/user');
+}
+```
+
+### delete
+```php
+public function hapus($id)
+{
+    $user = UserModel::find($id);
+    $user->delete();
+
+    return redirect("/user");
+}
+```
+kode diatas digunakan untuk menghapus data sesuai id yang ditangkap
+
+
+## Praktikum 2.7
