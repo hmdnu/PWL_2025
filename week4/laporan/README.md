@@ -4,7 +4,7 @@
 ## Praktikum 1
 
 1. m_user db content
-![m-user-content](./public/img/m-user-db.png)
+![m-user-content](/jobsheet4/public/img/m-user-db.png)
 
 2. UserModel.php
 
@@ -55,7 +55,7 @@ terjadi error karena $fillable tidak ada column password
 
 ## Praktikum 2.1
 
-![user-data](./public/img/user-data.png)
+![user-data](/jobsheet4/public/img/user-data.png)
 
 
 ```php
@@ -118,7 +118,7 @@ return view('user', ['data' => $user]);
 ```
 result
 
-![agg](./public/img/aggregate-data-user.png)
+![agg](/jobsheet4/public/img/aggregate-data-user.png)
 
 ## Praktikum 2.4
 
@@ -273,7 +273,7 @@ return view("user", ["data" => $user]);
 ```
 kode diatas mengambil semua data di tabel m_user dan mengembalikannya ke client
 
-![user-data](./public/img/user-data-p2.6.png)
+![user-data](/jobsheet4/public/img/user-data-p2.6.png)
 
 ### create
 
@@ -291,7 +291,7 @@ public function tambah()
 }
 ```
 
-![tambah-user](./public/img/tambah-user.png)
+![tambah-user](/jobsheet4/public/img/tambah-user.png)
 
 
 ```php
@@ -314,7 +314,7 @@ kode diatas digunakan untuk membuat data, ``$request`` adalah parameter untuk me
 
 link ubah redirect page ke /user/ubah/{id-user} dan merender informasi dari table ke client
 
-![ubah](./public/img/ubah-page.png)
+![ubah](/jobsheet4/public/img/ubah-page.png)
 
 
 kode dibawah digunakan untuk mengupdate data ketika form di isi
@@ -382,5 +382,5 @@ class LevelModel extends Model
 class LevelModel untuk memberikan relasi ke UserModel
 
 hasil
-![user-relation](./public/img/data-user-relation.png)
+![user-relation](/jobsheet4/public/img/data-user-relation.png)
 

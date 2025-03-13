@@ -4,29 +4,29 @@
 ## Praktikum 1
 
 1. Buat database PWL_POS
-![db](./public/img/db-pwl-pos.png)
+![db](/jobsheet3/public/img/db-pwl-pos.png)
 2. Konfigurasi .env
-![env](./public/img/env.png)
+![env](/jobsheet3/public/img/env.png)
 
 
 ## Praktikum 2.1
 1. Membuat migration tanpa relasi
-![migration-without-relation](./public/img/migration.png)
+![migration-without-relation](/jobsheet3/public/img/migration.png)
 2. Modifikasi file migration
-![modify-migration](./public/img/migration-file.png)
+![modify-migration](/jobsheet3/public/img/migration-file.png)
 3. Migrasi table m_level
-![migrate-m-level](./public/img/migrating-m-level.png)
+![migrate-m-level](/jobsheet3/public/img/migrating-m-level.png)
 4. Table m_level
-![m-level](./public/img/m-level-table.png)
+![m-level](/jobsheet3/public/img/m-level-table.png)
 5. Membuat tabel m_kategori
-![m-kategori](./public/img/creating-m-kategori.png)
+![m-kategori](/jobsheet3/public/img/creating-m-kategori.png)
 6. Migrasi m_kategori
-![m-kategori-migrating](./public/img/migratin-m-kategori.png)
+![m-kategori-migrating](/jobsheet3/public/img/migratin-m-kategori.png)
 
 
 ## Praktikum 2.2
 1. Buat table m_user
-![m-user](./public/img/m_user.png)
+![m-user](/jobsheet3/public/img/m_user.png)
 2. Modifikasi file migration
 ```php
  public function up(): void
@@ -44,35 +44,35 @@
     }
 ```
 3. Migrasai m_user
-![migrasi-m-user](./public/img/migrating-m-user.png)
+![migrasi-m-user](/jobsheet3/public/img/migrating-m-user.png)
 
 4. Tabel
-![tables](./public/img/tables.png)
+![tables](/jobsheet3/public/img/tables.png)
 
 
 ## Praktikum 3
 
 1. m_level content
 
-![m-level-content](./public/img/m-level-content.png)
+![m-level-content](/jobsheet3/public/img/m-level-content.png)
 
 2. m_user content
-![m-user-content](./public/img/m-user-content.png)
+![m-user-content](/jobsheet3/public/img/m-user-content.png)
 
 3. m_kategori
-![m-kategori](./public/img/m-kategori.png)
+![m-kategori](/jobsheet3/public/img/m-kategori.png)
 
 4. m_barang
-![m-barang](./public/img/m-barang.png)
+![m-barang](/jobsheet3/public/img/m-barang.png)
 
 5. t_stok 
-![t-stok](./public/img/t-stok.png)
+![t-stok](/jobsheet3/public/img/t-stok.png)
 
 6. t_penjualan
-![t-penjualan](./public/img/t-penjualan.png)
+![t-penjualan](/jobsheet3/public/img/t-penjualan.png)
 
 7. t_penjualan_detail
-![t-penjualan-detail](./public/img/t-penjualan-detail.png)
+![t-penjualan-detail](/jobsheet3/public/img/t-penjualan-detail.png)
 
 
 ----
@@ -101,7 +101,7 @@ class LevelController extends Controller
 ```
 Data inserted
 
-![insert-m-level](./public/img/insert-m-level.png)
+![insert-m-level](/jobsheet3/public/img/insert-m-level.png)
 
 
 2. update m_level
@@ -182,7 +182,7 @@ view
 ```
 
 result 
-![res-level](./public/img/view-level.png)
+![res-level](/jobsheet3/public/img/view-level.png)
 
 ----
 ## Praktikum 5
@@ -300,7 +300,7 @@ view
 ```
 
 result
-![kategori-view](./public/img/kategori-barang-view.png)
+![kategori-view](/jobsheet3/public/img/kategori-barang-view.png)
 
 ----
 ## Praktikum 6 Eloquent ORM
@@ -365,7 +365,7 @@ View
 
 Result
 Mengambil & menampikan data m_user ke client
-![data-user](./public/img/data-user.png)
+![data-user](/jobsheet3/public/img/data-user.png)
 
 
 Modifikasi insert data
@@ -395,7 +395,7 @@ class UserController extends Controller
 }
 ```
 Result
-![user-data](./public/img/modified-data-user.png)
+![user-data](/jobsheet3/public/img/modified-data-user.png)
 
 Modifikasi update data
 
@@ -427,4 +427,4 @@ class UserController extends Controller
 }
 ```
 result
-![update-data-user](./public/img/update-data-user.png)
+![update-data-user](/jobsheet3/public/img/update-data-user.png)
