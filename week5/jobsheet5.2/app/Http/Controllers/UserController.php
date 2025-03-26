@@ -11,6 +11,7 @@ use Yajra\DataTables\Facades\DataTables;
 
 class UserController extends Controller
 {
+
     public function index()
     {
         $breadcrumb = (object) [
@@ -29,19 +30,64 @@ class UserController extends Controller
         return view('user.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'level' => $level, 'activeMenu' => $activeMenu]);
     }
 
+    public function tambah()
+    {
+        return view('user_tambah');
+    }
+
+    public function tambah_simpan(Request $request)
+    {
+        UserModel::create([
+            'username' => $request->username,
+            'nama' => $request->nama,
+            'password' => Hash::make($request->password),
+            'level_id' => $request->level_id
+        ]);
+
+        return redirect('/user');
+    }
+
+    public function ubah($id)
+    {
+        $user = UserModel::find($id);
+        return view('user_ubah', ['data' => $user]);
+    }
+
+    public function ubah_simpan(Request $request, $id)
+    {
+        $user = UserModel::find($id);
+
+        $user->username = $request->username;
+        $user->nama = $request->nama;
+        $user->password = Hash::make($request->password);
+        $user->level_id = $request->level_id;
+
+        $user->save();
+
+        return redirect('/user');
+    }
+
+    public function hapus($id)
+    {
+        $user = UserModel::find($id);
+        $user->delete();
+
+        return redirect('/user');
+    }
     public function list(Request $request)
     {
         $users = UserModel::join('m_level', 'm_user.level_id', '=', 'm_level.level_id')
             ->select([
-                'm_user.user_id as id',
-                'm_user.username',
-                'm_user.nama',
-                'm_level.level_nama',
+                'm_user.user_id as id', // ID user
+                'm_user.username', // Username
+                'm_user.nama', // Nama user
+                'm_level.level_nama', // Nama level
             ]);
 
         return DataTables::of($users)
-            ->addIndexColumn()
+            ->addIndexColumn() // Tambahkan nomor urut
             ->addColumn('aksi', function ($user) {
+                // Tambahkan tombol aksi (Detail, Edit, Hapus)
                 $btn = '<a href="' . url("/user/{$user->id}") . '" class="btn btn-info btn-sm">Detail</a> ';
                 $btn .= '<a href="' . url("/user/{$user->id}/edit") . '" class="btn btn-warning btn-sm">Edit</a> ';
                 $btn .= '<form class="d-inline-block" method="POST" action="' . url("/user/{$user->id}") . '">'
@@ -51,10 +97,9 @@ class UserController extends Controller
                     . '</form>';
                 return $btn;
             })
-            ->rawColumns(['aksi'])
+            ->rawColumns(['aksi']) // Pastikan kolom aksi dirender sebagai HTML
             ->make(true);
     }
-
 
     // menampilkan halaman form tambah user baru
     public function create()
@@ -85,25 +130,29 @@ class UserController extends Controller
         $request->validate([
             // username harus diisi, berupa string, minimal 3 karakter, dan bernilai unik di tabel m_user kolom username
             'username' => 'required|string|min:3|unique:m_user,username',
-            'nama' => 'required|string|max:100', // nama harus diisi, berupa string, dan maksimal 100 karakter
-            'password' => 'required|min:5', // password harus diisi dan minimal 5 karakter
-            'level_id' => 'required|integer', // level_id harus diisi dan berupa angka
+            // nama harus diisi, berupa string, dan maksimal 100 karakter
+            'nama' => 'required|string|max:100',
+            // password harus diisi dan minimal 5 karakter
+            'password' => 'required|min:5',
+            // level_id harus diisi dan berupa angka
+            'level_id' => 'required|integer'
         ]);
 
         UserModel::create([
             'username' => $request->username,
             'nama' => $request->nama,
-            'password' => bcrypt($request->password), // password dienkripsi sebelum disimpan
-            'level_id' => $request->level_id,
+            // password dienkripsi sebelum disimpan
+            'password' => bcrypt($request->password),
+            'level_id' => $request->level_id
         ]);
 
         return redirect('/user')->with('success', 'Data user berhasil disimpan');
     }
 
-    // Menampilkan detail user
-    public function show(string $id)
+    // menampilkan detail user
+    public function show($id)
     {
-        $user = UserModel::with('level')->find($id);
+        $user = UserModel::with('level')->find($id); // ambil data user berdasarkan ID
 
         $breadcrumb = (object) [
             'title' => 'Detail User',
@@ -116,7 +165,12 @@ class UserController extends Controller
 
         $activeMenu = 'user'; // set menu yang sedang aktif
 
-        return view('user.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'user' => $user, 'activeMenu' => $activeMenu]);
+        return view('user.show', [
+            'breadcrumb' => $breadcrumb,
+            'page' => $page,
+            'activeMenu' => $activeMenu,
+            'user' => $user // tambahkan variabel $user ke array data
+        ]);
     }
 
     // Menampilkan halaman form edit user
@@ -136,7 +190,13 @@ class UserController extends Controller
 
         $activeMenu = 'user'; // set menu yang sedang aktif
 
-        return view('user.edit', ['breadcrumb' => $breadcrumb, 'page' => $page, 'user' => $user, 'level' => $level, 'activeMenu' => $activeMenu]);
+        return view('user.edit', [
+            'breadcrumb' => $breadcrumb,
+            'page' => $page,
+            'user' => $user,
+            'level' => $level,
+            'activeMenu' => $activeMenu
+        ]);
     }
 
     // Menyimpan perubahan data user
@@ -144,11 +204,14 @@ class UserController extends Controller
     {
         $request->validate([
             // username harus diisi, berupa string, minimal 3 karakter,
-            // dan bernilai unik di tabel m_user kolom username kecuali untuk user dengan id yang sedang diedit
+            // dan bernilai unik di tabel m_user kolom username kecuali user dengan id yang sedang diedit
             'username' => 'required|string|min:3|unique:m_user,username,' . $id . ',user_id',
-            'nama' => 'required|string|max:100', // nama harus diisi, berupa string, dan maksimal 100 karakter
-            'password' => 'nullable|min:5', // password bisa diisi (minimal 5 karakter) dan bisa tidak diisi
-            'level_id' => 'required|integer' // level_id harus diisi dan berupa angka
+            // nama harus diisi, berupa string, dan maksimal 100 karakter
+            'nama' => 'required|string|max:100',
+            // password nullable (boleh kosong), minimal 5 karakter dan bisa tidak diisi
+            'password' => 'nullable|min:5',
+            // level_id harus diisi dan berupa angka
+            'level_id' => 'required|integer'
         ]);
 
         UserModel::find($id)->update([
