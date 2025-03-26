@@ -5,6 +5,7 @@
     document.querySelectorAll('.delete-btn').forEach(button => {
         button.addEventListener('click', function() {
             let id = this.getAttribute('data-id');
+
             if (confirm('Yakin ingin menghapus kategori ini?')) {
                 fetch(`/kategori/${id}`, {
                         method: 'DELETE',
@@ -17,6 +18,8 @@
                         alert(data.success);
                         location.reload();
                     }).catch(error => console.error('Error:', error));
+            } else {
+                return;
             }
         });
     });
