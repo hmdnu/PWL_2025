@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\KategoriModel;
+use App\Models\CategoryModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
-class KategoriController extends Controller
+class CategoryController extends Controller
 {
 
     public function index()
@@ -30,7 +30,7 @@ class KategoriController extends Controller
 
     public function list(Request $request)
     {
-        $categories = KategoriModel::select('kategori_id', 'kategori_kode', 'kategori_nama');
+        $categories = CategoryModel::select('kategori_id', 'kategori_kode', 'kategori_nama');
 
         return DataTables::of($categories)
             ->addIndexColumn() // Menambahkan kolom index otomatis
@@ -76,7 +76,7 @@ class KategoriController extends Controller
             'kategori_nama' => 'required|string|max:100',
         ]);
 
-        KategoriModel::create([
+        CategoryModel::create([
             'kategori_kode' => $request->kategori_kode,
             'kategori_nama' => $request->kategori_nama,
         ]);
@@ -86,7 +86,7 @@ class KategoriController extends Controller
 
     public function show(string $id)
     {
-        $kategori = KategoriModel::find($id);
+        $kategori = CategoryModel::find($id);
 
         $breadcrumb = (object) [
             'title' => 'Detail Kategori',
@@ -109,7 +109,7 @@ class KategoriController extends Controller
 
     public function edit(string $id)
     {
-        $kategori = KategoriModel::find($id);
+        $kategori = CategoryModel::find($id);
 
         $breadcrumb = (object) [
             'title' => 'Edit Kategori',
@@ -137,7 +137,7 @@ class KategoriController extends Controller
             'kategori_nama' => 'required|string|max:100'
         ]);
 
-        $kategori = KategoriModel::find($id);
+        $kategori = CategoryModel::find($id);
 
         $kategori->update([
             'kategori_kode' => $request->kategori_kode,
@@ -149,13 +149,13 @@ class KategoriController extends Controller
 
     public function destroy(string $id)
     {
-        $check = KategoriModel::find($id);
+        $check = CategoryModel::find($id);
         if (!$check) {
             return redirect('/kategori')->with('error', 'Data kategori tidak ditemukan');
         }
 
         try {
-            KategoriModel::destroy($id);
+            CategoryModel::destroy($id);
 
             return redirect('/kategori')->with('success', 'Data kategori berhasil dihapus');
         } catch (\Illuminate\Database\QueryException $e) {
@@ -188,7 +188,7 @@ class KategoriController extends Controller
                 ]);
             }
 
-            KategoriModel::create($request->all());
+            CategoryModel::create($request->all());
             return response()->json([
                 'status' => true,
                 'message' => 'Data kategori berhasil disimpan'
@@ -201,7 +201,7 @@ class KategoriController extends Controller
 
     public function edit_ajax(string $id)
     {
-        $kategori = KategoriModel::find($id);
+        $kategori = CategoryModel::find($id);
         return view('kategori.edit_ajax', ['kategori' => $kategori]);
     }
 
@@ -223,7 +223,7 @@ class KategoriController extends Controller
                 ]);
             }
 
-            $check = KategoriModel::find($id);
+            $check = CategoryModel::find($id);
             if ($check) {
 
                 $check->update($request->all());
@@ -243,7 +243,7 @@ class KategoriController extends Controller
 
     public function confirm_ajax(string $id)
     {
-        $kategori = KategoriModel::find($id);
+        $kategori = CategoryModel::find($id);
 
         return view('kategori.confirm_ajax', ['kategori' => $kategori]);
     }
@@ -252,7 +252,7 @@ class KategoriController extends Controller
     {
         // cek apakah request dari ajax
         if ($request->ajax() || $request->wantsJson()) {
-            $kategori = KategoriModel::find($id);
+            $kategori = CategoryModel::find($id);
             if ($kategori) {
                 $kategori->delete();
                 return response()->json([

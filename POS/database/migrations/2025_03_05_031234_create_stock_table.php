@@ -12,15 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('stock', function (Blueprint $table) {
-            $table->id("stock_id");
-            $table->unsignedBigInteger("item_id");
-            $table->unsignedBigInteger("user_id");
-            $table->dateTime("stocked_date");
-            $table->integer("stock_amount");
-            $table->timestamp("created_at");
-            $table->timestamp("updated_at");
-            $table->foreign("item_id")->references("item_id")->on("item");
-            $table->foreign("user_id")->references("user_id")->on("user");
+            $table->id('stock_id');
+            $table->foreignId('item_id')->constrained('item','item_id');
+            $table->foreignId('user_id')->constrained('user','user_id');
+            $table->dateTime('stocked_date');
+            $table->integer('stock_amount');
+            $table->timestamps();
         });
     }
 

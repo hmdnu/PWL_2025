@@ -52,28 +52,44 @@
 
 @push('js')
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             var tableKategori = $('#table_kategori').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: {
                     url: "{{ url('kategori/list') }}",
                     type: "POST",
-                    data: function (d) {
+                    data: function(d) {
                         d.kategori_nama = $('#kategori_nama').val(); // Filter berdasarkan kategori_nama
                         d._token = "{{ csrf_token() }}"; // Kirim CSRF token
                     }
                 },
-                columns: [
-                    { data: "DT_RowIndex", className: "text-center", orderable: false, searchable: false },
-                    { data: "kategori_kode", orderable: true, searchable: true },
-                    { data: "kategori_nama", orderable: true, searchable: true },
-                    { data: "aksi", orderable: false, searchable: false }
+                columns: [{
+                        data: "DT_RowIndex",
+                        className: "text-center",
+                        orderable: false,
+                        searchable: false
+                    },
+                    {
+                        data: "kategori_kode",
+                        orderable: true,
+                        searchable: true
+                    },
+                    {
+                        data: "kategori_nama",
+                        orderable: true,
+                        searchable: true
+                    },
+                    {
+                        data: "aksi",
+                        orderable: false,
+                        searchable: false
+                    }
                 ]
             });
 
             // Reload data ketika filter kategori_nama berubah
-            $('#kategori_nama').on('change', function () {
+            $('#kategori_nama').on('change', function() {
                 tableKategori.ajax.reload();
             });
         });
