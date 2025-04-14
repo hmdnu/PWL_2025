@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Tenant;
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,15 +13,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
         $this->call([
-            LevelSeeder::class,
-            CategorySeeder::class,
             UserSeeder::class,
-            ItemSeeder::class,
-            SalesSeeder::class,
-            StockSeeder::class,
-            SalesDetailSeeder::class
+            TenantSeeder::class,
+            RoomSeeder::class,
+            RentalSeeder::class
         ]);
     }
 }
