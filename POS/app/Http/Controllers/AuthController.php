@@ -2,41 +2,46 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use JetBrains\PhpStorm\NoReturn;
 
 class AuthController extends Controller
 {
-    public function login()
+    public function showLogin()
     {
-        if (Auth::check()) { // jika sudah login, maka redirect ke halaman home
-            return redirect('/');
-        }
         return view('auth.login');
     }
-    public function postlogin(Request $request)
+
+    public function login(Request $request)
     {
-        if ($request->ajax() || $request->wantsJson()) {
-            $credentials = $request->only('username', 'password');
-            if (Auth::attempt($credentials)) {
-                return response()->json([
-                    'status' => true,
-                    'message' => 'Login Berhasil',
-                    'redirect' => url('/')
-                ]);
+        $credentials = $request->only('no_induk', 'password');
+
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+
+            $user = Auth::user();
+            if ($user->role === 'admin') {
+                return redirect('/dashboard');
+            } elseif ($user->role === 'tenant') {
+                return redirect('/');
             }
-            return response()->json([
-                'status' => false,
-                'message' => 'Login Gagal'
-            ]);
+
+            return redirect()->intended('/');
         }
-        return redirect('login');
+
+        return back()->withErrors([
+            'no_induk' => 'Invalid credentials.',
+        ])->withInput();
     }
+
     public function logout(Request $request)
     {
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('login');
+
+        return redirect('/login');
     }
 }
