@@ -3,6 +3,7 @@
 @section('title', 'Home')
 
 @section('content')
+    @include('partials.navbar')
     <h1 class="text-2xl p-10">List Room</h1>
     <section class="p-10 grid grid-cols-3 justify-items-center gap-10">
         @foreach ($rooms as $room)

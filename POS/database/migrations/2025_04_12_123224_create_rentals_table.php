@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -17,8 +16,9 @@ return new class extends Migration
             $table->foreignId('room_id')->constrained('rooms', 'id');
             $table->date('start_date');
             $table->date('end_date')->nullable();
-            $table->enum('status', ['active', 'inactive'])->nullable();
+            $table->enum('status', ['active', 'pending', 'inactive'])->default('pending');
             $table->string('attachment')->nullable();
+            $table->date('ended')->nullable();
             $table->timestamps();
         });
     }

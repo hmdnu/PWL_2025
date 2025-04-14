@@ -16,7 +16,8 @@ class Rental extends Model
         'start_date',
         'end_date',
         'status',
-        'attachment'
+        'attachment',
+        'ended'
     ];
 
     public function tenant(): BelongsTo

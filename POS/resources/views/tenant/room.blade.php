@@ -32,7 +32,7 @@
 
                     <!-- Display Rent form if available -->
                     @if ($room->status === 'available')
-                        <form action="{{ url('/room/rent', $room->id) }}" method="POST" class="mt-6">
+                        <form  action="{{ url('/room/rent/' . $room->id . '/tenant/' . auth()->user()->id)}}" enctype="multipart/form-data" method="POST" class="mt-6">
                             @csrf
                             <div class="mt-4">
                                 <label for="start_date" class="block text-sm">Start Date</label>
@@ -44,7 +44,7 @@
                             </div>
                             <div class="mt-4">
                                 <label for="attachment" class="block text-sm">Attachment</label>
-                                <input type="file" id="attachment" name="attachment" class="input input-bordered w-full">
+                                <input required type="file" name="attachment" class="file-input file-input-primary" />
                             </div>
                             <button type="submit" class="btn btn-primary w-full mt-6">Rent Room</button>
                         </form>

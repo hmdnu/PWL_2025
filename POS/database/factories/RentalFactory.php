@@ -26,7 +26,7 @@ class RentalFactory extends Factory
             'room_id' => Room::query()->inRandomOrder()->first()->id,
             'start_date' => $startDate,
             'end_date' => $endDate,
-            'status' => fake()->randomElement(['active', 'inactive']),
+            'status' => fake()->randomElement(['active', 'inactive', 'pending']),
             'attachment' => '/resources/attachment/dummy.png'
         ];
     }

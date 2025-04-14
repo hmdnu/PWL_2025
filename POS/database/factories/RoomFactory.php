@@ -18,7 +18,7 @@ class RoomFactory extends Factory
     {
         return [
             'name' => fake()->word(),
-            'floor' => fake()->unique()->randomNumber(2),
+            'floor' => fake()->numberBetween(5,8),
             'status' => fake()->randomElement(['available', 'inavailable', 'maintenance']),
         ];
     }
