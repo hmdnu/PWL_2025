@@ -26,8 +26,8 @@
                         <tr>
                             <th>{{ $loop->iteration }}</th>
                             <td>
-                                <a href="{{ asset('storage/' . $room->image) }}" target="_blank">
-                                    <img class="size-20 object-cover" src="{{ asset('storage/' . $room->image) }}"
+                                <a href="{{ asset("storage/$room->image") }}" target="_blank">
+                                    <img class="size-20 object-cover" src="{{ asset("storage/$room->image") }}"
                                         alt="class" />
                                 </a>
                             </td>

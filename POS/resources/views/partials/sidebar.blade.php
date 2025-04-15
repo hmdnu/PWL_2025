@@ -16,7 +16,8 @@
                 <li><a class="text-lg font-semibold" href="/dashboard">Dashboard</a></li>
                 <li><a class="text-lg font-semibold" href="/dashboard/user">User</a></li>
                 <li><a class="text-lg font-semibold" href="/dashboard/room">Room</a></li>
-                <li><a class="text-lg font-semibold" href="/dashboard/rental">Rental</a></li>
+                <li><a class="text-lg font-semibold" href="/dashboard/rental/pending">Rental Pending</a></li>
+                <li><a class="text-lg font-semibold" href="/dashboard/rental/history">Rental History</a></li>
             </ul>
             <button onclick="logout.showModal()" class="btn btn-soft btn-error">Logout</button>
         </div>

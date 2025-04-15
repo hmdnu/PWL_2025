@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Validator;
 
 class RoomController extends Controller
 {
-    public function index()
+    public function show()
     {
         return view('admin.room', ['rooms' => Room::all()]);
     }

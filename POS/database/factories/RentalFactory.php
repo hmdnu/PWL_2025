@@ -20,14 +20,16 @@ class RentalFactory extends Factory
     {
         $startDate = fake()->dateTimeBetween('-1 year', 'now');
         $endDate = fake()->dateTimeBetween($startDate, $startDate->modify('+1 year'));
+        $status = fake()->randomElement(['active', 'inactive', 'pending']);
 
         return [
             'tenant_id' => Tenant::query()->inRandomOrder()->first()->id,
             'room_id' => Room::query()->inRandomOrder()->first()->id,
             'start_date' => $startDate,
             'end_date' => $endDate,
-            'status' => fake()->randomElement(['active', 'inactive', 'pending']),
-            'attachment' => '/resources/attachment/dummy.png'
+            'status' => $status,
+            'attachment' => 'attachment/dummy.png',
+            'ended' => $status === 'inactive' ? $endDate : null
         ];
     }
 }

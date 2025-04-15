@@ -22,16 +22,23 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/create', [UserController::class, 'store']);
         });
         Route::prefix('room')->group(function () {
-            Route::get('/', [RoomController::class, 'index']);
+            Route::get('/', [RoomController::class, 'show']);
             Route::post('/create', [RoomController::class, 'store']);
             Route::delete('/{id}/delete', [RoomController::class, 'destroy']);
             Route::patch('/{id}/edit', [RoomController::class, 'update']);
         });
+        Route::prefix('rental')->group(function () {
+            Route::get('/pending', [RentalController::class, 'showPending']);
+            Route::get('/history', [RentalController::class, 'showHistory']);
+            Route::get('/{id}/approve', [RentalController::class, 'approve']);
+            Route::patch('/{id}/edit/status', [RentalController::class, 'updateStatus']);
+
+        });
     });
 
     Route::middleware(['tenant:admin,tenant'])->group(function () {
-        Route::get('/', [HomeController::class, 'index']);
-        Route::get('/{tenantId}', [UserController::class, 'index']);
+        Route::get('/', [HomeController::class, 'show']);
+        Route::get('/{tenantId}', [UserController::class, 'user']);
         Route::get('/room/{id}', [HomeController::class, 'room']);
         Route::post('/room/rent/{roomId}/tenant/{tenantId}', [RentalController::class, 'store']);
         Route::get('/rent/end', [RentalController::class, 'end']);

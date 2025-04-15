@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class UserController extends Controller
 {
-    public function index()
+    public function user()
     {
         $user = Auth::user();
         $rentals = Rental::with('room')
@@ -26,7 +26,7 @@ class UserController extends Controller
 
     public function show()
     {
-        return view('admin.user',['users'=> User::all()]);
+        return view('admin.user', ['users' => User::all()]);
     }
 
     public function store(Request $request)
