@@ -12,8 +12,8 @@ return new class extends Migration {
     {
         Schema::create('rentals', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('tenant_id')->constrained('tenants', 'id');
-            $table->foreignId('room_id')->constrained('rooms', 'id');
+            $table->foreignId('tenant_id')->constrained('tenants', 'id')->cascadeOnDelete();
+            $table->foreignId('room_id')->constrained('rooms', 'id')->cascadeOnDelete();
             $table->date('start_date');
             $table->date('end_date')->nullable();
             $table->enum('status', ['active', 'pending', 'inactive'])->default('pending');

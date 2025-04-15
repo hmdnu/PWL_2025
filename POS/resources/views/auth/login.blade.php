@@ -31,6 +31,9 @@
                     </div>
                 </div>
 
+                @error('no_induk')
+                    <p class="text-red-500">{{ $message }}</p>
+                @enderror
                 <div class="pt-2">
                     <button type="submit" class="btn btn-primary w-full">Login</button>
                 </div>

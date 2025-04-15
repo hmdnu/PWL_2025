@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('floor');
+            $table->string('image')->default('room/placeholder.png');
             $table->enum('status', ['available', 'inavailable', 'maintenance'])->default('available');
             $table->timestamps();
         });

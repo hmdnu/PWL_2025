@@ -10,7 +10,7 @@ class Room extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'floor', 'status'];
+    protected $fillable = ['name', 'floor', 'status', 'image'];
 
     public function rental(): HasMany
     {

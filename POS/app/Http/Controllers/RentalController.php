@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class RentalController extends Controller
 {
-    public function rent(Request $request, string $roomId, string $tenantId)
+    public function store(Request $request, string $roomId, string $tenantId)
     {
         try {
             $data = $request->array(['start_date', 'end_date']);
@@ -41,11 +41,9 @@ class RentalController extends Controller
                 'status' => 'inactive',
                 'ended' => now()
             ]);
-
             Room::find($query['roomId'])->update([
                 'status' => 'available',
             ]);
-
             return redirect('/' . auth()->user()->id, ResponseAlias::HTTP_OK);
         } catch (\Exception $exception) {
             return response($exception->getMessage(), ResponseAlias::HTTP_BAD_REQUEST);

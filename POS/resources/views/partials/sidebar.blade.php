@@ -1,7 +1,7 @@
 @extends('layout.app')
 
 <div class="drawer z-10 ">
-    <input id="my-drawer" type="checkbox" class="drawer-toggle"/>
+    <input id="my-drawer" type="checkbox" class="drawer-toggle" />
     <div class="drawer-content">
         <!-- Page content here -->
         <label for="my-drawer" class="btn btn-primary drawer-button m-5">
@@ -17,18 +17,11 @@
                 <li><a class="text-lg font-semibold" href="/dashboard/user">User</a></li>
                 <li><a class="text-lg font-semibold" href="/dashboard/room">Room</a></li>
                 <li><a class="text-lg font-semibold" href="/dashboard/rental">Rental</a></li>
-                <li><a class="text-lg font-semibold" href="/dashboard/tenant">Tenant</a></li>
             </ul>
             <button onclick="logout.showModal()" class="btn btn-soft btn-error">Logout</button>
         </div>
     </div>
 </div>
 
-<x-confirm-modal
-    id="logout"
-    title="Logout?"
-    message="Are you sure you want to Logout?"
-    action="/logout"
-    method="GET"
-    buttonText="Yes"
-/>
+<x-confirm-modal id="logout" title="Logout?" message="Are you sure you want to Logout?" action="/logout"
+    method="GET" buttonText="Yes" />
