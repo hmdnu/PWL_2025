@@ -1,6 +1,6 @@
 <div class="px-5 navbar bg-base-100 shadow-sm">
     <div class="flex-1">
-        <a href="/" class="btn btn-ghost text-xl">daisyUI</a>
+        <a href="/" class="btn btn-ghost text-xl">RoomRent</a>
     </div>
     <div class="flex gap-5">
         <div class="dropdown dropdown-end">

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Rental;
 use App\Models\Room;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;

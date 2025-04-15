@@ -1,10 +1,8 @@
 @extends('layout.app')
-
-@section('title', 'Dashboard')
+@section('title', 'Room')
 
 @section('content')
-    @include('partials.sidebar')
     <section class="p-10">
-        <h1>Dashboard</h1>
+        <h1>Room</h1>
     </section>
 @endsection

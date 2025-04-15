@@ -3,6 +3,7 @@
 @section('title', 'Room Detail')
 
 @section('content')
+    @include('partials.navbar')
     <div class="p-10">
         <h1 class="text-2xl mb-4 text-center">{{ $room->name }} - Room Detail</h1>
         <section class="bg-base-200 dark:bg-base-300 p-10 rounded-lg">
